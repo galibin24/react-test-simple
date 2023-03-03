@@ -9,9 +9,10 @@ function App() {
   const [result, setResult] = useState('');
   
   async function onClick() {
-    if (!shaRegex.match(sha)) {
-      throw new Error('BOOM')
-    }
+    // note: this won't be required if we hash it for them
+    // if (!shaRegex.match(sha)) {
+    //   throw new Error('BOOM')
+    // }
 
     const res = await fetch('http://example.com/movies.json')
     setResult(res);
