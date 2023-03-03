@@ -1,7 +1,7 @@
 import './App.css';
 import { useState } from 'react';
 
-const shaRegex = "^([0-9A-Fa-f]{2}[:]){19}([0-9A-Fa-f]{2})$";
+//const shaRegex = /^([0-9A-Fa-f]{2}[:]){19}([0-9A-Fa-f]{2})$/;
 
 function App() {
 
@@ -13,15 +13,22 @@ function App() {
     // if (!shaRegex.match(sha)) {
     //   throw new Error('BOOM')
     // }
-
-    const res = await fetch('http://example.com/movies.json')
+	// generating hash
+	const encoder = new TextEncoder();
+  	const data = await encoder.encode(sha);
+    const hash = await crypto.subtle.digest('SHA-1', data);
+	const hashString = Array.from(new Uint8Array(hash)).map( x => x.toString(16).padStart(2,'0') ).join('');
+	console.log(hashString)
+	// fetch('https://example.com')
+    const res = await fetch(`https://europe-west2-linen-mapper-379416.cloudfunctions.net/FetchRelatedHashes?hash=${hashString}`)
     setResult(res);
+	console.log(res)
   }
  
   return (
     <div className="App">
       <div >
-		   <div>Please input your sha below.</div>
+		   <div>Please input your password below.</div>
         <input onChange={(e) => setSha(e.target.value)}></input>
         <button onClick={onClick}>Submit</button>
       </div>
