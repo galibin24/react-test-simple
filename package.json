@@ -2,6 +2,7 @@
   "name": "simple-react",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://api.pluralsight.com:8000",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
